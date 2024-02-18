@@ -6,16 +6,31 @@
 //
 
 import SwiftUI
+import SchemaGraphQL
 
 struct ContentView: View {
+    
+    @StateObject private var countryListViewModel = CountryListViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                List(countryListViewModel.countries, id: \.code){ country in
+                    NavigationLink(
+                        destination: CountryDetailView(country: country),
+                        label: {
+                            HStack{
+                                Text(country.emoji)
+                                Text(country.name)
+                            }
+                        }
+                    )
+                }.listStyle(PlainListStyle())
+            }
+            .onAppear(perform: {
+                countryListViewModel.getAllCountries()
+            }).navigationTitle("Countries")
         }
-        .padding()
     }
 }
 
