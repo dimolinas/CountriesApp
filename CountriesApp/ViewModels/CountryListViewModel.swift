@@ -48,6 +48,7 @@ struct CountryViewModel{
 
 extension CountryViewModel{
     static var defaultCountry:CountryViewModel{
-        return CountryViewModel(country: GetAllCountriesQuery.Data.Country()
+        let mockCountry = GetAllCountriesQuery.Data.Country(data: <#T##[String : Any]#>)
+        return CountryViewModel(country: mockCountry )
     }
 }
